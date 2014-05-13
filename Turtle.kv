@@ -1,0 +1,98 @@
+#:kivy 1.0.9
+
+<Command@BoxLayout>:
+    size_hint: 1, None
+    height: btn.height
+    orientation: 'horizontal'
+    callback: lambda x: x
+    label_txt: "egg"
+    Label:
+        size_hint: 2, None
+        height: btn.height
+        text_size: self.size
+        shorten: True
+        text: self.parent.label_txt
+    TextInput:
+        id: txt
+        size_hint: 5, None
+        height: btn.height
+        multiline: False
+        on_text_validate: self.parent.callback(self.text)
+    Button:
+        id: btn
+        size_hint: 1, None
+        height: 32
+        text: ">"
+        on_press: self.parent.callback(txt.text)
+
+<Turtle>:
+    size_hint: None, None
+    size: 32, 32
+    r: 0
+    relative_x: self.x - self.parent.center_x
+    relative_y: self.y - self.parent.center_y
+    relative_pos: (self.relative_x, self.relative_y)
+    canvas:
+        Rectangle:
+            source: 'turtle.png'
+            size: self.size
+            pos: self.pos
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: -self.r
+            axis: 0, 0, 1
+            origin: self.center
+    canvas.after:
+        PopMatrix
+
+<TurtleDisplay>:
+    size_hint: 2, 1
+    canvas:
+        Color:
+            hsv: .2, .2, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<CommandBox>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            hsv: .7, .8, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<AppLayout>:
+    size: root.size
+    pos: root.pos
+    orientation: 'horizontal'
+
+    TurtleDisplay:
+        id: 'view'
+        Turtle:
+            id: turtle
+            pos: self.parent.center
+    CommandBox:
+        id: 'ctrl'
+        padding: 4
+        Command:
+            label_txt: "sety"
+            callback: turtle.sety
+        Command:
+            label_txt: "seth"
+            callback: turtle.seth
+        Command:
+            label_txt: "fd"
+            callback: turtle.fd
+        Command:
+            label_txt: "bk"
+            callback: turtle.bk
+        Command:
+            label_txt: "lt"
+            callback: turtle.lt
+        Command:
+            label_txt: "rt"
+            callback: turtle.rt
+        Widget:
