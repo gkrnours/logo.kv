@@ -46,8 +46,8 @@
     canvas.after:
         PopMatrix
 
-<TurtleDisplay>:
-    size_hint: 2, 1
+<TurtleDisplay@Widget>:
+    size_hint: 3, 1
     canvas:
         Color:
             hsv: .2, .2, 1
@@ -55,7 +55,7 @@
             size: self.size
             pos: self.pos
 
-<CommandBox>:
+<CommandBox@BoxLayout>:
     orientation: 'vertical'
     canvas:
         Color:
@@ -64,35 +64,39 @@
             size: self.size
             pos: self.pos
 
-<AppLayout>:
+<AppLayout@BoxLayout>:
     size: root.size
     pos: root.pos
-    orientation: 'horizontal'
+    orientation: 'vertical'
 
-    TurtleDisplay:
-        id: 'view'
-        Turtle:
-            id: turtle
-            pos: self.parent.center
-    CommandBox:
-        id: 'ctrl'
-        padding: 4
-        Command:
-            label_txt: "sety"
-            callback: turtle.sety
-        Command:
-            label_txt: "seth"
-            callback: turtle.seth
-        Command:
-            label_txt: "fd"
-            callback: turtle.fd
-        Command:
-            label_txt: "bk"
-            callback: turtle.bk
-        Command:
-            label_txt: "lt"
-            callback: turtle.lt
-        Command:
-            label_txt: "rt"
-            callback: turtle.rt
-        Widget:
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 3
+        TurtleDisplay:
+            id: 'view'
+            Turtle:
+                id: turtle
+                pos: self.parent.center
+        CommandBox:
+            id: 'ctrl'
+            padding: 4
+            Command:
+                label_txt: "sety"
+                callback: turtle.sety
+            Command:
+                label_txt: "seth"
+                callback: turtle.seth
+            Command:
+                label_txt: "fd"
+                callback: turtle.fd
+            Command:
+                label_txt: "bk"
+                callback: turtle.bk
+            Command:
+                label_txt: "lt"
+                callback: turtle.lt
+            Command:
+                label_txt: "rt"
+                callback: turtle.rt
+            Widget:
+    Timeline:

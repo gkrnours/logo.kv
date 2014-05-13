@@ -1,22 +1,8 @@
-__author__ = 'ludo'
-
 import re
 import numbers
 from math import sin, cos, radians
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.uix.button import Button
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.anchorlayout import AnchorLayout
-
-class Comand(BoxLayout):
-    def __init__(self, **kx):
-        self.register_event_type('on_callback')
-        super(Command, self).__init__(**kw)
-
-    def on_callback(self, *args):
-        pass
 
 class Turtle(Widget):
     """A turtle that can be moved on the display"""
@@ -31,27 +17,13 @@ class Turtle(Widget):
         self.mov = [self.relative_pos]
 
     def _setx(self, x):
-        if isinstance(x, numbers.Number):
-            self.x = self.parent.center_x + x
-        #if isinstance(x, 'str')
-        if isinstance(x, basestring):
-            if re.match('[+-]', x):
-                self.x += float(x)
-            else:
-                self.x = self.parent.center_x + float(x)
+        self.x = self.parent.center_x + float(x)
 
     def _sety(self, y):
-        if isinstance(y, numbers.Number):
-            self.y = self.parent.center_y + y
-        #if isinstance(y, 'str')
-        if isinstance(y, basestring):
-            if re.match('[+-]', y):
-                self.y += float(y)
-            else:
-                self.y = self.parent.center_y + float(y)
+        self.y = self.parent.center_y + float(y)
 
     def _move(self, d, r=0):
-        theta = radians(self.r + r)
+        theta = radians(r)
         dy, dx = int(cos(theta) * float(d)), int(sin(theta) * float(d))
         self._setx(self.relative_x + dx)
         self._sety(self.relative_y + dy)
@@ -64,13 +36,7 @@ class Turtle(Widget):
 
     def seth(self, r):
         """rotate the turtle"""
-        if isinstance(r, numbers.Number):
-            self.r = r
-        if isinstance(r, basestring):
-            if re.match('[+-]', r):
-                self.r += float(r)
-            else:
-                self.r = float(r)
+        self.r = float(r)
 
     def lt(self, r):
         """rotate left
@@ -102,28 +68,9 @@ class Turtle(Widget):
     def fd(self, d):
         """move forward by a delta d
         alias: forward"""
-        self._move(d)
+        self._move(d, self.r)
 
     def bk(self, d):
         """move backward by a delta d
         alias: backward"""
-        self._move(d, 180)
-
-class TurtleDisplay(Widget):
-    pass
-
-class CommandBox(BoxLayout):
-    pass
-
-class AppLayout(BoxLayout):
-    pass
-
-class TurtleApp(App):
-    def build(self):
-        def setx(obj):
-            print obj
-
-        return AppLayout()
-
-if __name__ == '__main__':
-    TurtleApp().run()
+        self._move(d, self.r+180)
