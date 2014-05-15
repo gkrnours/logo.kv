@@ -5,6 +5,7 @@ from kivy.properties import OptionProperty, ObjectProperty
 class DispenserBehavior(object):
     state = OptionProperty('normal', options=('normal', 'drawn'))
     card = ObjectProperty(None)
+    receiver = ObjectProperty(None)
     _card = ObjectProperty(None)
 
     def __init__(self, **kw):
@@ -35,6 +36,9 @@ class DispenserBehavior(object):
         if self.state == 'drawn':
             self._card.parent.remove_widget(self._card)
             self.state = 'normal'
+            if self.receiver and self.receiver.collide_point(*touch.pos):
+                self.receiver.add_widget(self._card)
+                self._card.size_hint = None, 1
 
     def on_draw_card(self):
         pass

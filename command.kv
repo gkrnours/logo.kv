@@ -24,3 +24,8 @@
         Rectangle:
             pos: self.pos
             size: self.size
+    Label:
+        text: self.parent.name
+        pos: self.parent.x + 4, self.parent.y
+        size: self.parent.width, 16
+        text_size: self.size

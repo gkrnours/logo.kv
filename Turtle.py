@@ -1,13 +1,22 @@
 import re
 import numbers
 from math import sin, cos, radians
+import exceptions
 from kivy.app import App
 from kivy.uix.widget import Widget
 
 class Turtle(Widget):
     """A turtle that can be moved on the display"""
+    _self = None
+
+    @classmethod
+    def get_turtle(cls):
+        return cls._self
 
     def __init__(self, **kw):
+        if Turtle._self:
+            raise(exceptions.Exception())
+        Turtle._self = self
         super(Turtle, self).__init__(**kw)
         self.movements = []
         self.mov = [(0,0)]

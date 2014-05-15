@@ -115,9 +115,11 @@
                 text: "Turtle"
             CommandCardDispenser:
                 card: cmd.FdCard
+                receiver: table
             Widget:
     Timeline:
         id: timeline
+        receiver: table
         BoxLayout:
             height: self.parent.height
             width: 64
@@ -132,4 +134,17 @@
                 text: "play"
             Slider:
                 orientation: 'vertical'
+        BoxLayout:
+            id: table
+            height: self.parent.height
+            width: self.parent.width - 64
+            pos: 64, 0
+            padding: 8
+            spacing: 8
+            canvas:
+                Color:
+                    hsv: 120/360., 1, .21
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
