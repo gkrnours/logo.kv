@@ -9,6 +9,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from turtle import Turtle
+from command import CommandCardDispenser, CommandCard, PrimitiveCard
 
 class Timeline(Widget):
     pass

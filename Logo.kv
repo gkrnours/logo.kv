@@ -1,4 +1,5 @@
 #:kivy 1.0.9
+#:import cmd command
 
 <Command@BoxLayout>:
     size_hint: 1, None
@@ -25,6 +26,13 @@
         text: ">"
         on_press: self.parent.callback(txt.text)
 
+<Title@Label>:
+    size_hint: 1, None
+    height: 32
+    text_size: self.size
+    shorten: True
+
+
 <Turtle>:
     size_hint: None, None
     size: 32, 32
@@ -50,7 +58,7 @@
     size_hint: 3, 1
     canvas:
         Color:
-            hsv: .2, .2, 1
+            hsv: 46/360., .11, .93
         Rectangle:
             size: self.size
             pos: self.pos
@@ -59,7 +67,7 @@
     orientation: 'vertical'
     canvas:
         Color:
-            hsv: .7, .8, 1
+            hsv: 192/360., 1, .21
         Rectangle:
             size: self.size
             pos: self.pos
@@ -80,6 +88,7 @@
         CommandBox:
             id: 'ctrl'
             padding: 4
+            spacing: 2
             Command:
                 label_txt: "sety"
                 callback: turtle.sety
@@ -98,5 +107,29 @@
             Command:
                 label_txt: "rt"
                 callback: turtle.rt
+            Title:
+                text: "Primitive"
+            CommandCardDispenser:
+                card: cmd.NumberCard
+            Title:
+                text: "Turtle"
+            CommandCardDispenser:
+                card: cmd.FdCard
             Widget:
     Timeline:
+        id: timeline
+        BoxLayout:
+            height: self.parent.height
+            width: 64
+            padding: 8
+            spacing: 8
+            orientation: 'vertical'
+            Button:
+                width: 48
+                height: 48
+                size_hint: None, None
+                background_color: 133/255., 153/255., 0, 1
+                text: "play"
+            Slider:
+                orientation: 'vertical'
+
